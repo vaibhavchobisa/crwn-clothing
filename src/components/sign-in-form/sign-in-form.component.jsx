@@ -1,7 +1,8 @@
 // useState() is used in forms to visually update everything that the user types in the input fields. 
 // (weird right? Well that's how React works.)
 
-import { useState } from "react";
+import { useState, useContext } from "react";
+import { UserContext } from "../../contexts/user.context";
 import FormInput from "../form-input/form-input.component";
 import "./sign-in-form.styles.scss";
 import Button from "../button/button.component";
@@ -21,7 +22,10 @@ const SignInForm = () => {
     const [formFields, setFormFields] = useState(defaultFormFields);
     const { email, password } = formFields;
 
-    console.log(formFields);
+    // Commented out coz useless coz of use of onAuthStateChanged.
+    // const { setCurrentUser } = useContext(UserContext);
+
+    // console.log(formFields);
 
     const resetFormFields = () => {
         setFormFields(defaultFormFields);
@@ -31,8 +35,12 @@ const SignInForm = () => {
         event.preventDefault();
 
         try {
-            const response = await signInAuthUserWithEmailAndPassword(email, password);
-            console.log(response);
+            const { user } = await signInAuthUserWithEmailAndPassword(email, password);
+
+            // Rather than using setCurrentUser method to set context again and again
+            // in different files, we use the Open Listener (Observer) called onAuthStateChanged
+            // that always keeps a track of authentication state (be it logged in or out).  
+            // setCurrentUser(user);
             resetFormFields();
         } catch (error) {
             switch (error.code) {
@@ -51,14 +59,15 @@ const SignInForm = () => {
     };
 
     const handleChange = (event) => {
-        console.log(event)
+        // console.log(event)
         const { name, value } = event.target;
         setFormFields({ ...formFields, [name]: value });
     };
 
     const signInWithGoogle = async () => {
         const { user } = await signInWithGooglePopup();
-        await createUserDocumentFromAuth(user);
+        // setCurrentUser(user);
+        // await createUserDocumentFromAuth(user);
     };
 
     return (
