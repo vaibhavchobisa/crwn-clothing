@@ -20,8 +20,13 @@ import { signOutUser } from '../../utils/firebase.utils';
 
 const Navigation = () => {
     const { currentUser, setCurrentUser } = useContext(UserContext);
-    const { isCartOpen } = useContext(CartContext);
+    const { isCartOpen, setIsCartOpen } = useContext(CartContext);
 
+    const logOutUser = () => {
+        signOutUser();
+        closeCartDropdownHandler();
+    };
+    const closeCartDropdownHandler = () => { if (isCartOpen) setIsCartOpen(!isCartOpen) };
     // console.log(currentUser);
 
     // Commented out because of replaced use of observer open listener.
@@ -33,21 +38,21 @@ const Navigation = () => {
     return (
         <Fragment>
             <div className="navigation">
-                <Link className="logo-container" to='/'>
+                <Link className="logo-container" to='/' onClick={closeCartDropdownHandler}>
                     <CrwnLogo className="logo" />
                 </Link>
-                <div className="nav-links-container">
-                    <Link className="nav-link" to='/shop'>
+                <div className="nav-links-container" >
+                    <Link className="nav-link" to='/shop' onClick={closeCartDropdownHandler}>
                         Shop
                     </Link>
                     {
                         currentUser ?
                             (
-                                <span className='nav-link' onClick={signOutUser}>Sign Out</span>
+                                <span className='nav-link' onClick={logOutUser}>Sign Out</span>
                             )
                             :
                             (
-                                <Link className="nav-link" to='/auth'>
+                                <Link className="nav-link" to='/auth' onClick={closeCartDropdownHandler}>
                                     Sign In
                                 </Link>
                             )
