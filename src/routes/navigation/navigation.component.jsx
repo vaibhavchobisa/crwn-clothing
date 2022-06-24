@@ -1,6 +1,6 @@
 import './navigation.styles.scss';
 import { Outlet, Link } from "react-router-dom";
-// Link tag works like anchor tags just with some added functionality for reac-router-dom to work efficiently.
+// Link tag works like anchor tags just with some added functionality for react-router-dom to work efficiently.
 
 import CartIcon from '../../components/cart-icon/cart-icon.component';
 import CartDropdown from '../../components/cart-dropdown/cart-dropdown.component';
@@ -9,12 +9,11 @@ import CartDropdown from '../../components/cart-dropdown/cart-dropdown.component
 // just to satisfy the rule of having a parent enclosing tag.
 import { Fragment, useContext } from "react";
 
-// SVG- Scalable Vector - Great for Logos since it doesn't pixelate on resizing.
-// The logo has been imorted as a React component:
-
 import { UserContext } from '../../contexts/user.context';
 import { CartContext } from '../../contexts/cart.context';
 
+// SVG- Scalable Vector - Great for Logos since it doesn't pixelate on resizing.
+// The logo has been imorted as a React component:
 import { ReactComponent as CrwnLogo } from "../../assets/crown.svg";
 import { signOutUser } from '../../utils/firebase.utils';
 

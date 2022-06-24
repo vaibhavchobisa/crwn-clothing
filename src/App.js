@@ -11,8 +11,9 @@ const App = () => {
     <Routes>
       <Route path="/" element={<Navigation />}>
         {/* Just the term index means index={true} */}
+        {/* The below are all the "outlets" */}
         <Route index element={<Home />} />
-        <Route path="/shop" element={<Shop />} />
+        <Route path="/shop/*" element={<Shop />} />
         <Route path="/auth" element={<Authentication />} />
         <Route path="/checkout" element={<Checkout />} />
       </Route>
