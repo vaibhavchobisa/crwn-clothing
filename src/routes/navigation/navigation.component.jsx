@@ -1,5 +1,5 @@
-import './navigation.styles.scss';
-import { Outlet, Link } from "react-router-dom";
+import { LogoContainer, NavigationContainer, NavLinks, NavLink } from './navigation.styles';
+import { Outlet } from "react-router-dom";
 // Link tag works like anchor tags just with some added functionality for react-router-dom to work efficiently.
 
 import CartIcon from '../../components/cart-icon/cart-icon.component';
@@ -36,34 +36,38 @@ const Navigation = () => {
 
     return (
         <Fragment>
-            <div className="navigation">
-                <Link className="logo-container" to='/' onClick={closeCartDropdownHandler}>
-                    <CrwnLogo className="logo" />
-                </Link>
-                <div className="nav-links-container" >
-                    <Link className="nav-link" to='/shop' onClick={closeCartDropdownHandler}>
+            <NavigationContainer>
+                <LogoContainer to='/' onClick={closeCartDropdownHandler}>
+                    <CrwnLogo />
+                </LogoContainer>
+                <NavLinks>
+                    <NavLink to='/shop' onClick={closeCartDropdownHandler}>
                         Shop
-                    </Link>
+                    </NavLink>
                     {
                         currentUser ?
                             (
-                                <span className='nav-link' onClick={logOutUser}>Sign Out</span>
+                                // This as property will render the NavLink component
+                                // which is a Link or React Anchor tag as a span tag.
+                                <NavLink as="span" onClick={logOutUser}>
+                                    Sign Out
+                                </NavLink>
                             )
                             :
                             (
-                                <Link className="nav-link" to='/auth' onClick={closeCartDropdownHandler}>
+                                <NavLink to='/auth' onClick={closeCartDropdownHandler}>
                                     Sign In
-                                </Link>
+                                </NavLink>
                             )
                     }
                     <CartIcon />
-                </div>
+                </NavLinks>
                 {/* Pay attention to the below code: "Short Circuit Operator" */}
                 {
                     isCartOpen &&
                     <CartDropdown />
                 }
-            </div>
+            </NavigationContainer>
             <Outlet />
         </Fragment>
     );
