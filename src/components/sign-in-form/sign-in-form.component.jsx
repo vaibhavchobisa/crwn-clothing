@@ -5,7 +5,7 @@ import { useState, useContext } from "react";
 import { UserContext } from "../../contexts/user.context";
 import FormInput from "../form-input/form-input.component";
 import "./sign-in-form.styles.scss";
-import Button from "../button/button.component";
+import Button, { BUTTON_TYPE_CLASSES } from "../button/button.component";
 import {
     createUserDocumentFromAuth,
     signInWithGooglePopup,
@@ -81,7 +81,7 @@ const SignInForm = () => {
                     <Button type="submit">Sign In</Button>
                     {/* By default buttons are of the type 'submit',
                 mention type to override this default behavior. */}
-                    <Button type='button' onClick={signInWithGoogle} buttonType="google">Google Sign In</Button>
+                    <Button buttonType={BUTTON_TYPE_CLASSES.google} type='button' onClick={signInWithGoogle}>Google Sign In</Button>
                 </div>
             </form>
         </div>
