@@ -21,7 +21,7 @@ export const LogoContainer = styled(Link)`
   padding: 1.1rem;
   transition: transform 0.5s cubic-bezier(0.075, 0.82, 0.165, 1);
     &:hover {
-    transform: scale(1.05);
+    transform: scale(1.07);
   }
 `;
 
@@ -31,10 +31,12 @@ export const NavLinks = styled.div`
   display: flex;
   align-items: center;
   justify-content: flex-end;
+  padding-right: 15px;
 `;
 
 export const NavLink = styled(Link)`
   padding: 15px;
+  /* margin: 15px ; */
   cursor: pointer;
 
 span {

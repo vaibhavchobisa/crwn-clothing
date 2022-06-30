@@ -81,12 +81,12 @@ export const createUserDocumentFromAuth = async (userAuth, additionalInformation
     if (!userAuth) return;
 
     const userDocRef = doc(db, 'users', userAuth.uid);
-    console.log(userDocRef);
+    // console.log(userDocRef);
 
     // getDoc is used to get user data
     const userSnapshot = await getDoc(userDocRef);
-    console.log(userSnapshot);
-    console.log(userSnapshot.exists());
+    // console.log(userSnapshot);
+    // console.log(userSnapshot.exists());
 
     // Writing some Pseudo Code:
     // If user data doesn't exist:
