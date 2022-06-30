@@ -41,7 +41,7 @@ span {
     line-height: 2;
     white-space: nowrap;
     position: relative;
-    font-size: 1.5vw;
+    font-size: 120%;
 
     &::before {
     background-color: black;
