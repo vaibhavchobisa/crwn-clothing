@@ -34,13 +34,14 @@ export const NavLinks = styled.div`
 `;
 
 export const NavLink = styled(Link)`
-  padding: 10px 15px;
+  padding: 15px;
   cursor: pointer;
 
 span {
     line-height: 2;
     white-space: nowrap;
     position: relative;
+    font-size: 20px;
 
     &::before {
     background-color: black;
