@@ -24,4 +24,10 @@ export const Preview = styled.div`
   display: flex;
   justify-content: left;
   flex-wrap: wrap;
+
+     @media only screen and (max-width: 531px) {
+        display: grid;
+        grid-template-rows: repeat(1, 1fr);
+        justify-content: center;
+    }
 `;

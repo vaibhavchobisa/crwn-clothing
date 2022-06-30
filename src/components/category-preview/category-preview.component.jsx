@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 const CategoryPreview = ({ title, products }) => {
     return (
         <CategoryPreviewContainer>
-            <h2 style={{ marginLeft: "35px" }}>
+            <h2 style={{ textAlign: "center" }}>
                 <Link to={title}>
                     <Title>{title.toUpperCase()}</Title>
                 </Link>
