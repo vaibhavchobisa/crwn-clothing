@@ -42,7 +42,7 @@ const Navigation = () => {
                 </LogoContainer>
                 <NavLinks>
                     <NavLink to='/shop' onClick={closeCartDropdownHandler}>
-                        Shop
+                        <span>Shop</span>
                     </NavLink>
                     {
                         currentUser ?
@@ -50,13 +50,13 @@ const Navigation = () => {
                                 // This as property will render the NavLink component
                                 // which is a Link or React Anchor tag as a span tag.
                                 <NavLink as="span" onClick={logOutUser}>
-                                    Sign Out
+                                    <span>Sign Out</span>
                                 </NavLink>
                             )
                             :
                             (
                                 <NavLink to='/auth' onClick={closeCartDropdownHandler}>
-                                    Sign In
+                                    <span>Sign In</span>
                                 </NavLink>
                             )
                     }
