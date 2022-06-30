@@ -10,6 +10,10 @@ export const CartIconContainer = styled.div`
   align-items: center;
   justify-content: center;
   cursor: pointer;
+    transition: transform 150ms;
+    &:hover {
+    transform: scale(1.05);
+  }
 `;
 
 export const ShoppingIcon = styled(ShoppingSvg)`

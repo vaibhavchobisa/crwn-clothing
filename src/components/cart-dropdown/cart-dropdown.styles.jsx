@@ -17,7 +17,8 @@ export const CartDropdownContainer = styled.div`
   background-color: white;
   top: 90px;
   right: 40px;
-  z-index: 5;
+  z-index: 50;
+  opacity: 1;
 
   // Pay attention to this code
   // Additional styling has been added to the already styled (imported) components
