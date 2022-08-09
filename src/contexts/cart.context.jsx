@@ -1,4 +1,4 @@
-import { createContext, useState, useEffect } from "react";
+import { createContext, useState, useEffect, useReducer } from "react";
 
 const addCartItem = (cartItems, productToAdd) => {
     // find if cardItems contains productToAdd
@@ -56,37 +56,102 @@ export const CartContext = createContext({
     cartTotal: 0,
 });
 
-export const CartProvider = ({ children }) => {
-    const [isCartOpen, setIsCartOpen] = useState(false);
-    const [cartItems, setCartItems] = useState([]);
-    const [cartCount, setCartCount] = useState(0);
-    const [cartTotal, setCartTotal] = useState(0);
+const CART_ACTION_TYPES = {
+    SET_CART_ITEMS: 'SET_CART_ITEMS',
+    SET_IS_CART_OPEN: 'SET_IS_CART_OPEN',
+};
 
-    useEffect(() => {
-        const netCartCount = cartItems.reduce((total, cartItem) => total + cartItem.quantity, 0);
-        setCartCount(netCartCount);
-    }, [cartItems])
+const cartReducer = (state, action) => {
+    const { type, payload } = action;
+
+    // the idea is to never write business logic in the reducer, to keep it simple
+    // So, the logic has been written outside
+    switch (type) {
+        case CART_ACTION_TYPES.SET_CART_ITEMS:
+            return {
+                ...state,
+                ...payload,
+            };
+        case CART_ACTION_TYPES.SET_IS_CART_OPEN:
+            return {
+                ...state,
+                isCartOpen: payload,
+            };
+        default:
+            throw new Error(`Unhandled type ${type} in cartReducer`);
+    }
+};
+
+
+const INITIAL_STATE = {
+    isCartOpen: false,
+    cartItems: [],
+    cartCount: 0,
+    cartTotal: 0,
+};
+
+export const CartProvider = ({ children }) => {
+    // const [isCartOpen, setIsCartOpen] = useState(false);
+    // const [cartItems, setCartItems] = useState([]);
+    // const [cartCount, setCartCount] = useState(0);
+    // const [cartTotal, setCartTotal] = useState(0);
+
+
+    // const setIsCartOpen = (toggleDropdown) => {
+    //     dispatch({ type: CART_ACTION_TYPES.TOGGLE_DROPDOWN, payload: toggleDropdown });
+    // }
+
+
+    // useEffect(() => {
+    //     const netCartCount = cartItems.reduce((total, cartItem) => total + cartItem.quantity, 0);
+    //     setCartCount(netCartCount);
+    // }, [cartItems])
 
     // We could have collated this useEffect function in the previous useEffect,
     // but just like we want 1 function to handle one task,
     // it's a good practise to use diff useEffect calls for different tasks
     // for better readability.
-    useEffect(() => {
-        const netCartAmount = cartItems.reduce((total, cartItem) => total + (cartItem.quantity * cartItem.price), 0);
-        setCartTotal(netCartAmount);
-    }, [cartItems])
+    // useEffect(() => {
+    //     const netCartAmount = cartItems.reduce((total, cartItem) => total + (cartItem.quantity * cartItem.price), 0);
+    //     setCartTotal(netCartAmount);
+    // }, [cartItems])
 
-    // Note- cartItems is an object whereas productToAdd is an object.
+
+    const [state, dispatch] = useReducer(cartReducer, INITIAL_STATE);
+    const { cartItems, isCartOpen, cartCount, cartTotal } = state;
+
+    const updateCartItemsReducer = (newCartItems) => {
+        // generate newCartTotal
+        const newCartTotal = newCartItems.reduce((total, cartItem) => total + (cartItem.quantity * cartItem.price), 0);
+
+        // generate newCartCount
+        const newCartCount = newCartItems.reduce((total, cartItem) => total + cartItem.quantity, 0);
+
+        dispatch({
+            type: CART_ACTION_TYPES.SET_CART_ITEMS,
+            payload: { cartItems: newCartItems, cartTotal: newCartTotal, cartCount: newCartCount },
+        });
+    };
+
+    const setIsCartOpen = (bool) => {
+        dispatch({ type: CART_ACTION_TYPES.SET_IS_CART_OPEN, payload: bool });
+    };
+
+
+    // Note- cartItems is an array whereas productToAdd is an object.
     const addItemToCart = (productToAdd) => {
-        setCartItems(addCartItem(cartItems, productToAdd));
+        const newCartItems = addCartItem(cartItems, productToAdd);
+        updateCartItemsReducer(newCartItems);
     };
 
     const removeItemToCart = (cartItemToRemove) => {
-        setCartItems(removeCartItem(cartItems, cartItemToRemove));
+        const newCartItems = removeCartItem(cartItems, cartItemToRemove);
+        updateCartItemsReducer(newCartItems);
     };
 
     const clearItemFromCart = (cartItemToClear) => {
-        setCartItems(clearCartItem(cartItems, cartItemToClear));
+        const newCartItems = clearCartItem(cartItems, cartItemToClear);
+        updateCartItemsReducer(newCartItems);
     };
 
     const value = {

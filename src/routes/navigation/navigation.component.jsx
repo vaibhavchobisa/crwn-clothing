@@ -21,11 +21,12 @@ const Navigation = () => {
     const { currentUser, setCurrentUser } = useContext(UserContext);
     const { isCartOpen, setIsCartOpen } = useContext(CartContext);
 
+    const closeCartDropdownHandler = () => { if (isCartOpen) setIsCartOpen(!isCartOpen) };
+
     const logOutUser = () => {
         signOutUser();
         closeCartDropdownHandler();
     };
-    const closeCartDropdownHandler = () => { if (isCartOpen) setIsCartOpen(!isCartOpen) };
     // console.log(currentUser);
 
     // Commented out because of replaced use of observer open listener.

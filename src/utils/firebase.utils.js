@@ -96,7 +96,6 @@ export const createUserDocumentFromAuth = async (userAuth, additionalInformation
         const createdAt = new Date();
 
         try {
-            // this returns userDocRef value (it has to, so assuming)
             await setDoc(userDocRef, {
                 displayName,
                 email,
@@ -126,4 +125,5 @@ export const signInAuthUserWithEmailAndPassword = async (email, password) => {
 // These export arrow functions are called- Interface Layer Functions or Helper Functions
 export const signOutUser = async () => await signOut(auth);
 
+// this is the observer open listener
 export const onAuthStateChangedListener = (callback) => onAuthStateChanged(auth, callback);
