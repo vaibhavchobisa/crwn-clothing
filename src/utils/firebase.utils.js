@@ -30,7 +30,7 @@ const firebaseConfig = {
     authDomain: "crwn-clothing-db-2b06f.firebaseapp.com",
     projectId: "crwn-clothing-db-2b06f",
     storageBucket: "crwn-clothing-db-2b06f.appspot.com",
-    messagingSenderId: "305919184369",
+    messagingSenderId: "305919184369",  
     appId: "1:305919184369:web:f36c231533aef45b9bc850"
 };
 
@@ -60,7 +60,7 @@ export const addCollectionAndDocuments = async (collectionKey, objecstToAdd) => 
     });
     
     await batch.commit();
-    console.log("done");
+    // console.log("done");
 };
 
 export const getCategoriesAndDocuments = async () => {
@@ -68,13 +68,7 @@ export const getCategoriesAndDocuments = async () => {
     const q = query(collectionRef);
     // getDocs here is the asynchronous ability to fetch those document snapshots that we want
     const querySnapshot = await getDocs(q);
-    const categoryMap = querySnapshot.docs.reduce((acc, docSnapshot) => {
-        const { title, items } = docSnapshot.data();
-        acc[title.toLowerCase()] = items;
-        return acc;
-    }, {});
-
-    return categoryMap;
+    return querySnapshot.docs.map((docSnapshot) => docSnapshot.data());
 }; 
 
 export const createUserDocumentFromAuth = async (userAuth, additionalInformation = {}) => {

@@ -5,15 +5,13 @@ const addCartItem = (cartItems, productToAdd) => {
     const existingCartItem = cartItems.find(
         (cartItem) => cartItem.id === productToAdd.id
     );
-
-    // if found, increment quantity. ALso we'll return a new array instead of mutating
+    // if found, increment quantity. Also we'll return a new array instead of mutating
     if (existingCartItem) {
         return (
             cartItems.map((cartItem) =>
                 cartItem.id === productToAdd.id ?
                     { ...cartItem, quantity: cartItem.quantity + 1 }
                     : cartItem)
-
             // Below is a wrong approach, altho helpful in understanding
             // [...cartItems, { ...existingCartItem, quantity: existingCartItem.quantity + 1 }]
         );
@@ -25,12 +23,10 @@ const addCartItem = (cartItems, productToAdd) => {
 const removeCartItem = (cartItems, cartItemToRemove) => {
     // find the cart item to remove
     const existingCartItem = cartItems.find(cartItem => cartItem.id === cartItemToRemove.id);
-
     // check if quantity = 1, if it is remove that item from cart
     if (existingCartItem.quantity === 1) {
         return cartItems.filter(cartItem => cartItem.id !== cartItemToRemove.id);
     }
-
     // if not, return back cartItems with matching cart item with reduced quantity
     return (
         cartItems.map((cartItem) =>
@@ -55,13 +51,14 @@ export const CartContext = createContext({
 });
 
 const CART_ACTION_TYPES = {
-    SET_CART_ITEMS: 'SET_CART_ITEMS',
     SET_IS_CART_OPEN: 'SET_IS_CART_OPEN',
+    SET_CART_ITEMS: 'SET_CART_ITEMS',
+    SET_CART_COUNT: 'SET_CART_COUNT',
+    SET_CART_TOTAL: 'SET_CART_TOTAL',
 };
 
 const cartReducer = (state, action) => {
     const { type, payload } = action;
-
     // the idea is to never write business logic in the reducer, to keep it simple
     // So, the logic has been written outside
     switch (type) {
@@ -73,13 +70,12 @@ const cartReducer = (state, action) => {
         case CART_ACTION_TYPES.SET_IS_CART_OPEN:
             return {
                 ...state,
-                isCartOpen: payload,
+                ...payload,
             };
         default:
             throw new Error(`Unhandled type ${type} in cartReducer`);
     }
 };
-
 
 const INITIAL_STATE = {
     isCartOpen: false,
@@ -94,11 +90,9 @@ export const CartProvider = ({ children }) => {
     // const [cartCount, setCartCount] = useState(0);
     // const [cartTotal, setCartTotal] = useState(0);
 
-
     // const setIsCartOpen = (toggleDropdown) => {
     //     dispatch({ type: CART_ACTION_TYPES.TOGGLE_DROPDOWN, payload: toggleDropdown });
     // }
-
 
     // useEffect(() => {
     //     const netCartCount = cartItems.reduce((total, cartItem) => total + cartItem.quantity, 0);
@@ -113,7 +107,6 @@ export const CartProvider = ({ children }) => {
     //     const netCartAmount = cartItems.reduce((total, cartItem) => total + (cartItem.quantity * cartItem.price), 0);
     //     setCartTotal(netCartAmount);
     // }, [cartItems])
-
 
     const [state, dispatch] = useReducer(cartReducer, INITIAL_STATE);
     const { cartItems, isCartOpen, cartCount, cartTotal } = state;
@@ -134,7 +127,6 @@ export const CartProvider = ({ children }) => {
     const setIsCartOpen = (bool) => {
         dispatch({ type: CART_ACTION_TYPES.SET_IS_CART_OPEN, payload: bool });
     };
-
 
     // Note- cartItems is an array whereas productToAdd is an object.
     const addItemToCart = (productToAdd) => {

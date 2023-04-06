@@ -17,16 +17,16 @@ export const CategoriesProvider = ({ children }) => {
     //     []);
 
     // this is how an async function is called in useEffect-
-    // by wrapping it in another asnyc function and then
+    // by wrapping it in another asnyc fun ction and then
     // invoking it next
-    useEffect(() => {
-        const getCategoriesMap = async () => {
-            const categoryMap = await getCategoriesAndDocuments();
-            // console.log(categoryMap);
-            setCategoriesMap(categoryMap);
-        };
-        getCategoriesMap();
-    }, []);
+    // useEffect(() => {
+    //     const getCategoriesMap = async () => {
+    //         const categoryMap = await getCategoriesAndDocuments();
+    //         // console.log(categoryMap);
+    //         setCategoriesMap(categoryMap);
+    //     };
+    //     getCategoriesMap();
+    // }, []);
 
     const value = { categoriesMap };
 

@@ -1,26 +1,29 @@
-// import {compose, createStore, applyMiddleware} from "redux";
-import logger from "redux-logger";
-import { compose } from "redux";
-import { createStore } from "redux";
+import { compose, legacy_createStore as createStore, applyMiddleware } from "redux";
+// import logger from "redux-logger";
+// commenting the above logger and writing our own, to demistify middlewares
 
+import { rootReducer } from "./root-reducer";
 
-// function fetchUsers(url, callback) {
-//   setTimeout(
-//     () =>
-//       callback([
-//         { name: "John", id: 1 },
-//         { name: "Doe", id: 2 }
-//       ]),
-//     100
-//   );
-// }
+const loggerMiddleware = (store) => (next) => (action) => {
+    if (!action.type) {
+        return next(action);
+    }
+    console.log('type: ', action.type);
+    console.log('payload: ', action.payload);
+    console.log('currentState: ', store.getState());
 
-// function getUsers(callback) {
-//   fetchUsers("/api/v1/users", callback);
-// }
+    next(action);
 
-// function logUsers() {
-//   getUsers(res => console.log("Users are: ", res));
-// }
+    console.log('next state: ', store.getState());
+}
 
-// logUsers();
+// root-reducer
+
+// const middleWares = [logger]
+const middleWares = [loggerMiddleware]
+
+const composedEnhancers = compose(applyMiddleware(...middleWares)); 
+
+export const store = createStore(rootReducer, undefined
+    ,composedEnhancers
+    );

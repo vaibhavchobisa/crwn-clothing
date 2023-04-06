@@ -1,11 +1,15 @@
-import { useContext } from "react";
+// import { useContext } from "react";
 import CheckOutItem from "../../components/checkout-item/checkout-item.component";
-import { CartContext } from "../../contexts/cart.context";
+// import { CartContext } from "../../contexts/cart.context";
+import { useSelector } from "react-redux";
+import { selectCartItems, selectCartTotal } from "../../store/cart/cart.selector";
 
 import "./checkout.styles.scss";
 
 const Checkout = () => {
-    const { cartItems, cartTotal } = useContext(CartContext);
+    // const { cartItems, cartTotal } = useContext(CartContext);
+    const cartItems = useSelector(selectCartItems);
+    const cartTotal = useSelector(selectCartTotal)
 
     // Another way to find total, instead of setting the value via cart.context
     // const totalAmount = cartItems.reduce((sum, cartItem) => sum + (cartItem.quantity * cartItem.price), 0);
