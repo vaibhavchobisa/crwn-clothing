@@ -14,7 +14,7 @@ const CategoriesPreview = () => {
 
     return (
         <div className="shop-container">
-            {// the below line converts keys in categoriesMap object into an array.
+            {// the code below converts keys in categoriesMap object into an array.
                 Object.keys(categoriesMap).map((title) => {
                     const products = categoriesMap[title];
                     return (
