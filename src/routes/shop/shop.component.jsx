@@ -2,7 +2,7 @@
 // import SHOP_DATA from '../../shop-data.json';
 
 import { useEffect } from "react";
-import { getCategoriesAndDocuments } from "../../utils/firebase.utils";
+import { getCategoriesAndDocuments } from "../../utils/firebase/firebase.utils";
 import { useDispatch } from "react-redux";
 
 import { Routes, Route } from "react-router-dom";

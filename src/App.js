@@ -6,7 +6,7 @@ import { Routes, Route } from "react-router-dom";
 import Checkout from "./routes/checkout/checkout.component";
 import { useEffect } from "react";
 
-import { onAuthStateChangedListener, createUserDocumentFromAuth } from "./utils/firebase.utils";
+import { onAuthStateChangedListener, createUserDocumentFromAuth } from "./utils/firebase/firebase.utils";
 import { setCurrentUser  } from "./store/user/user.action";
 import { useDispatch } from "react-redux";
 

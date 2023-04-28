@@ -19,7 +19,7 @@ import { setIsCartOpen } from '../../store/cart/cart.action';
 // SVG- Scalable Vector - Great for Logos since it doesn't pixelate on resizing.
 // The logo has been imorted as a React component:
 import { ReactComponent as CrwnLogo } from "../../assets/crown.svg";
-import { signOutUser } from '../../utils/firebase.utils';
+import { signOutUser } from '../../utils/firebase/firebase.utils';
 import { selectIsCartOpen } from '../../store/cart/cart.selector';
 
 
