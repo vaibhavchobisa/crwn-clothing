@@ -1,4 +1,4 @@
-// Import the functions you need from the SDKs you need
+// Import the functions you need from the SDKs
 import { initializeApp } from "firebase/app";
 import {
     getAuth,
@@ -101,8 +101,7 @@ export const createUserDocumentFromAuth = async (userAuth, additionalInformation
         }
     }
 
-    // If user data exists:
-    // return userDocRef:
+    // If user data exists, return userDocRef:
     return userDocRef;
 };
 

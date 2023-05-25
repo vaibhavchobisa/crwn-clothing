@@ -10,12 +10,11 @@ import "./checkout.styles.scss";
 const Checkout = () => {
     // const { cartItems, cartTotal } = useContext(CartContext);
     const cartItems = useSelector(selectCartItems);
-    const cartTotal = useSelector(selectCartTotal)
+    const cartTotal = useSelector(selectCartTotal);
 
     // Another way to find total, instead of setting the value via cart.context
     // const totalAmount = cartItems.reduce((sum, cartItem) => sum + (cartItem.quantity * cartItem.price), 0);
-
-    return (
+    if (cartTotal) return (
         <div className="checkout-container">
             <div className="checkout-header">
                 <div className="header-block">
@@ -39,10 +38,13 @@ const Checkout = () => {
                     <CheckOutItem key={cartItem.id} cartItem={cartItem} />
                 ))
             }
-            <span className="total">Total: ${cartTotal}</span>
+            <span className="total">Total: ₹{cartTotal}</span>
             <PaymentForm />
         </div>
     );
+    else return (
+        <h2>Add Items!</h2>
+    )
 };
 
 export default Checkout;

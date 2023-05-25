@@ -20,7 +20,6 @@ const PaymentForm = () => {
         if (!stripe || !elements) {
             return;
         }
-
         setIsProcessingPayment(true);
 
         // if you type create-payment-intent with its .js extension, it will cause an error
@@ -36,7 +35,6 @@ const PaymentForm = () => {
 
         // destructuring the client secret from response:
         const { paymentIntent: { client_secret }, } = response;
-        console.log(client_secret);
 
         const paymentResult = await stripe.confirmCardPayment(client_secret, {
             payment_method: {
@@ -59,7 +57,7 @@ const PaymentForm = () => {
         }
     };
 
-    return (
+    if (amount) return (
         <PaymentFormContainer>
             <FormContainer onSubmit={paymentHandler}>
                 <h2>Enter Credit/Debit Card details:</h2>

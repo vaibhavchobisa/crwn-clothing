@@ -34,7 +34,10 @@ const CartDropdown = () => {
                     )
                 }
             </CartItems>
-            <Button onClick={goToCheckoutHandler}>checkout</Button>
+            {
+                cartItems.length ? <Button onClick={goToCheckoutHandler}>checkout</Button>
+                    : null
+            }
         </CartDropdownContainer>
     );
 };
