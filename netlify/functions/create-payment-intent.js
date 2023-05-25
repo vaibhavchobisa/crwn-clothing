@@ -1,5 +1,5 @@
 // serverless function logic
-// we are using netlify here, which used Amazon Lambda under the hood (which works for approx 10 secs, 
+// we are using netlify here, which uses Amazon Lambda under the hood (which works for approx 10 secs, 
 // which is enough for us to create & send a req, receive a response from stripe, and send back a req)
 
 // now stripe only accepts request from backend, to setup the same, we also have
