@@ -2,6 +2,7 @@ import { compose, legacy_createStore as createStore, applyMiddleware } from "red
 import { persistStore, persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 import logger from "redux-logger";
+import { thunk } from "redux-thunk";
 // commenting the above logger and writing our own, to demistify middlewares
 
 import { rootReducer } from "./root-reducer";
@@ -10,13 +11,13 @@ const persistConfig = {
     key: 'root',
     // aliter of- storage: storage below
     storage,
-    blacklist: ['user']
+    whitelist: ['cart']
 }
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
 // to remove middleware induced console.log(s) from the production environment:-
-const middleWares = [process.env.NODE_ENV !== 'production' && logger]
+const middleWares = [process.env.NODE_ENV !== 'production' && logger, thunk,]
 .filter(Boolean);
 // Boolean function should be basically:
 // function Boolean(item) {
